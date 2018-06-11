@@ -1,6 +1,7 @@
 var AV = require('leanengine');
 var ztjyCloud = require('./cloud/ztjyCloud.js');
 var meituan = require('./cloud/meituansign.js');
+var sendmail = require('./cloud/sendMail.js');
 
 
 /**
@@ -63,8 +64,12 @@ AV.Cloud.define('hello2', function (request) {
 
 });
 
-AV.Cloud.define('httpTest', function (request) {
-  // return ztjyCloud.runOneCheckInquest('12000000008','b66260fb41984349efa0dd718e72a9be');
-  return "";
+AV.Cloud.define('sendMailTest', function (request) {
+  sendmail.testSend();
+  return "ok";
 });
 
+AV.Cloud.define('ztjyCheckIn', function (request) {
+  let result = ztjyCloud.runAllCheckIn();
+  return result;
+});

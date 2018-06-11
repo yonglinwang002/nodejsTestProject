@@ -17,7 +17,8 @@
     "koa-views": "^6.0.2",
     "leancloud-storage": "^3.0.2",
     "leanengine": "^3.0.0",
-    "sync-request": "^6.0.0"
+    "sync-request": "^6.0.0",
+    "nodemailer": "^4.6.5"
   },
   "devDependencies": {
     "nodemon": "^1.11.0"
