@@ -9,9 +9,8 @@ function runAllCheckIn() {
   return query.find().then(function(results) {
     for (var i = 0; i < results.length; i++ ) {
       let userid = results[i].get('mobile');
-      console.log(results[i]);
       let babyID = results[i].get('babyid');
-      console.log('babyID:'+babyID);
+
       let result = runOneCheckIn(userid,"",babyID);
       console.log('result:'+result);
     }
@@ -24,8 +23,15 @@ function runOneCheckIn(userid,password,babyid) {
     /*  登录 */
     let sessionid = login(userid,"");
     logineverydayonetimes(sessionid);
-    // let growthid=addGrowup(sessionid);
+    let growthid=addGrowup(sessionid,babyid);
+    shareMessage(sessionid);
 
+    var returnCode = deleteGrowup(sessionid,growthid);
+    var deleteTimes = 1;
+    while (returnCode != 10000 && deleteTimes<3) {
+      returnCode = deleteGrowup(sessionid,growthid);
+      deleteTimes += 1;
+    }
     return "OK";
   }
   
@@ -34,25 +40,53 @@ function runOneCheckIn(userid,password,babyid) {
     return returncode;
   }
 
-  function addGrowup(sessionid) {
-    console.log("start logineverydayonetimes");
-    let returncode =  ztBaseRequest("ZTHServer/app/logineverydayonetimes",null,"1236",sessionid).returncode;
+  function addGrowup(sessionid,babyid) {
+    console.log("start addGrowup");
+    let parameters = 
+      {
+        "archivestype" : "2",
+        "sendtype" : "0",
+        "childid" : babyid,
+        "studentid" : babyid,
+        "textcontent" : "6592"
+      };
+    let growthid =  ztBaseRequest("ZTHServer/growup/add",parameters,"1119",sessionid).body.growthid;
+    return growthid;
+  }
+
+  function deleteGrowup(sessionid,growthid) {
+    console.log("start deleteGrowup");
+    let parameters = 
+      {
+        "growthid" : growthid
+      };
+    let returncode =  ztBaseRequest("ZTHServer/growup/delgrowth",parameters,"1139",sessionid).returncode;
     return returncode;
   }
 
-  function getBabyList(sessionid) {
-    console.log("start getBabyList");
-    let babyarray =  ztBaseRequest("family/baby/list/1343/v1.0",null,sessionid).body.babyinfolist;
-    if (babyarray.length>0) {
-      let babyid = babyarray[0].babyuid;
-      console.log("babyID:"+babyid);
-      return babyid;
-    }
-    else
-    {
-      return "";
-    }
+  function shareMessage(sessionid) {
+    console.log("start shareMessage");
+    let parameters = {   
+      "shareto" : 2,  
+     "shareurl" : "http:\/\/ztjywx.szy.cn\/growth\/getWeiXinOpenId.action?id=",  
+      "sharetype" : 1 
+    };
+    let returncode =  ztBaseRequest("ZTHServer/sharemessage/shareMessage",parameters,"1229",sessionid).returncode;
+    return returncode;
   }
+  // function getBabyList(sessionid) {
+  //   console.log("start getBabyList");
+  //   let babyarray =  ztBaseRequest("family/baby/list/1343/v1.0",null,sessionid).body.babyinfolist;
+  //   if (babyarray.length>0) {
+  //     let babyid = babyarray[0].babyuid;
+  //     console.log("babyID:"+babyid);
+  //     return babyid;
+  //   }
+  //   else
+  //   {
+  //     return "";
+  //   }
+  // }
 
   function login(userName,password) {
     let parameters = {
