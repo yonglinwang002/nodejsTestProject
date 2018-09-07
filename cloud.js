@@ -73,3 +73,8 @@ AV.Cloud.define('ztjyCheckIn', function (request) {
   let result = ztjyCloud.runAllCheckIn();
   return result;
 });
+
+AV.Cloud.define('ztjyNewCheckIn', function (request) {
+  let result = ztjyCloud.runOneCheckIn("18918243082","","");
+  return result;
+});
