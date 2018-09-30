@@ -56,6 +56,7 @@ function runOneCheckIn(mobile,password,babyid) {
       "password":"e10adc3949ba59abbe56e057f20f883e",
       "account":mobile
     };
+    console.log("当前用户："+mobile);
     let returncode = ztNewBaseRequest("userserver/info/checkphoneaccount/v1.0",para,"").body.code;
     console.log(returncode);
     return returncode;

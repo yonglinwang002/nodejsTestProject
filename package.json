@@ -9,6 +9,7 @@
     "dev": "nodemon server.js -- "
   },
   "dependencies": {
+    "dateformat": "^3.0.3",
     "ejs": "^2.5.6",
     "koa": "^2.3.0",
     "koa-bodyparser": "^4.2.0",
@@ -17,8 +18,8 @@
     "koa-views": "^6.0.2",
     "leancloud-storage": "^3.0.2",
     "leanengine": "^3.0.0",
-    "sync-request": "^6.0.0",
-    "nodemailer": "^4.6.5"
+    "nodemailer": "^4.6.5",
+    "sync-request": "^6.0.0"
   },
   "devDependencies": {
     "nodemon": "^1.11.0"

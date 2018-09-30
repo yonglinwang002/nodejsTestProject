@@ -2,7 +2,7 @@ var AV = require('leanengine');
 var ztjyCloud = require('./cloud/ztjyCloud.js');
 var meituan = require('./cloud/meituansign.js');
 var sendmail = require('./cloud/sendMail.js');
-
+var xiaomisprot =  require('./cloud/xiaomisport.js');
 
 /**
  * 一个简单的云代码方法
@@ -12,6 +12,20 @@ AV.Cloud.define('meituanSign', function(request) {
   return reseult['data'];
 });
 
+AV.Cloud.define('xiaomisport', function(request) {
+
+  Math.random()*7000
+  var num = Math.random()*7000 + 13000;
+  num = parseInt(num, 10);
+
+  var step = num;
+  if (request.params.step) {
+    step = request.params.step;
+  } 
+  console.log('step:'+step);
+  var reseult = xiaomisprot.run(step);
+  return reseult;
+});
 /**
  * 
  */
