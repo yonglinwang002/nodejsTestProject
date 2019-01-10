@@ -4,6 +4,14 @@ var meituan = require('./cloud/meituansign.js');
 var sendmail = require('./cloud/sendMail.js');
 var xiaomisprot =  require('./cloud/xiaomisport.js');
 
+
+/**
+ * 一个简单的云代码方法
+ */
+AV.Cloud.define('hello', function(request) {
+  return 'Hello world!';
+});
+
 /**
  * 一个简单的云代码方法
  */

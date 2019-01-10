@@ -1,9 +1,7 @@
 'use strict';
 
 const AV = require('leanengine');
-const Router = require('koa-router');
-
-const router = new Router({prefix: '/zyjy'});
+var router = require('express').Router();
 
 // const Todo = AV.Object.extend('Todo');
 
@@ -16,9 +14,7 @@ router.get('/', async function(ctx) {
 //     // 处理调用失败
 //   });
 //   await ctx.render('todos.ejs');
-cts.state.helloCallBack = 'adfs';
-
-  await ctx.render('./todos.ejs');
+await ctx.render('ztjy.ejs');
 });
 
 module.exports = router;
